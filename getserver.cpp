@@ -3,7 +3,7 @@ class Client;
 class chanell;
 class Ircserver;
 std::string IRCServer::getServerName() const {
-        return _name; // Remplacez ceci par le nom réel de votre serveur
+        return _name;
     }
 std::map<int, Client*> IRCServer::getClients() const {
         return clients;
