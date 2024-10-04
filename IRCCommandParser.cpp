@@ -73,7 +73,6 @@ void IRCServer::NewMsg(int client_fd)
 		if (bytes_read < 0)
 		{
 			std::cerr << "[Server] Failed to read from client" << std::endl;
-			// removeClient(client_fd);
 			return;
 		}
 		else if (bytes_read == 0)
@@ -81,9 +80,9 @@ void IRCServer::NewMsg(int client_fd)
 
 			return;
 		}
-		buffer[bytes_read] = '\0'; // Terminer la chaîne avec un caractère nul pour en faire une chaîne de caractères C
+		buffer[bytes_read] = '\0';
 
-		std::cout << "[Client] Message received from client " <<  id << " : " << buffer << std::endl; // si affichage incoherent regarder ici
+		std::cout << "[Client] Message received from client " <<  id << " : " << buffer << std::endl;
 		std::string partialInput = client->getPartialInput() + std::string(buffer);
 		client->setPartialInput(partialInput);
 	
@@ -163,7 +162,7 @@ void IRCServer::MsgForListClient(const std::string &message) {
 		sendMessage(it->first, message);
 	}
 }
-/**************************chanell********************************/
+/**************************channel********************************/
 void IRCServer::addChanell(Channel* channel)
 {
     if (!channel)
@@ -182,7 +181,6 @@ void IRCServer::addChanell(Channel* channel)
 
 void IRCServer::removeChannel(Channel* channel)
 {
-    // Utiliser un itérateur pour trouver l'élément dans le vecteur
     std::vector<Channel*>::iterator it = std::find(chanells.begin(), chanells.end(), channel);
 
     if (it != chanells.end())
@@ -193,7 +191,6 @@ void IRCServer::removeChannel(Channel* channel)
 }
 Channel* IRCServer::getChannelByName(std::string name)
 {
-    // Utilisation d'une boucle pour parcourir le vecteur
     for (std::vector<Channel*>::iterator it = chanells.begin(); it != chanells.end(); ++it)
     {
         if ((*it)->getName() == name)  
@@ -206,13 +203,10 @@ Channel* IRCServer::getChannelByName(std::string name)
 
 const char* IRCServer::concatenate(const char* str1, const char* str2)
 {
-    // Alloue de la mémoire pour la nouvelle chaîne de caractères
     char* result = new char[strlen(str1) + strlen(str2) + 1];
 
-    // Copie le contenu de la première chaîne de caractères
     strcpy(result, str1);
 
-    // Concatène le contenu de la deuxième chaîne de caractères
     strcat(result, str2);
 
     return result;
@@ -226,7 +220,6 @@ void IRCServer::broadcastMessage(const char* message)
 int IRCServer::NewConnection(int epollFd, struct sockaddr_in &client_address, socklen_t &client_len){
 	// Accepter une nouvelle connexion
 	int client_fd = accept(serverSocket, (struct sockaddr*)&client_address, &client_len);
-	//std::cout<<"numero" <<client_fd<<std::endl;
 	if (client_fd < 0) {
 		std::cerr << "Échec de l'acceptation du client." << std::endl;
 		return 0;
@@ -247,7 +240,6 @@ int IRCServer::NewConnection(int epollFd, struct sockaddr_in &client_address, so
 		newClient->setOp(true);
 
 	// Ajouter le nouveau client au liste de clients
-	//std::cout<<"ajout du nouveau client"<<std::endl;
 	addClient(client_fd,newClient);
 	// Ajouter le descripteur de fichier (socket) du nouveau client à l'instance epoll
 	struct epoll_event event;
@@ -264,7 +256,6 @@ int IRCServer::NewConnection(int epollFd, struct sockaddr_in &client_address, so
 
 void	IRCServer::initCommands( void )
 {
-	//_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("CAP", &cap));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("NICK", &nick));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("KICK", &kick));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("INVITE", &invite));
@@ -273,14 +264,12 @@ void	IRCServer::initCommands( void )
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PRIVMSG", &privmsg));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("NAMES", &names));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("NOTICE", &notice));
-	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("OPER", &oper));//on garde ?
+	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("OPER", &oper));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PART", &part));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PASS", &pass));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PING", &ping));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("QUIT", &quit));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("TOPIC", &topic));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("USER", &user));
-	//_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("WALLOPS", &wallops));//on garde ?
-	//_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("WHOIS", &whois));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("WHO", &who));
 }
