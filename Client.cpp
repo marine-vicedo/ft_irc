@@ -84,5 +84,5 @@ void Client::msg(const std::string &message)
 		void 		Client::setOp(bool isOp) { _isOp = isOp; };
 		void 		Client::setInvisible(bool isInvisible) { _isInvisible = isInvisible; };
 		void 		Client::setWallops(bool isWallops) { _isWallops = isWallops; };
-/***************************************getchanell****************************************/
+/***************************************getchannel****************************************/
 std::vector<Channel *> Client::getChannels() { return _channels; };
