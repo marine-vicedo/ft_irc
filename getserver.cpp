@@ -5,9 +5,9 @@ class channel;
 class Ircserver;
 
 std::string IRCServer::getServerName() const {
-        return _name; 
+        return _name;
 }
-std::map<int, Client*> IRCServer::getClients() const{
+std::map<int, Client*> IRCServer::getClients() const {
         return clients;
 }
 std::vector<Channel*> IRCServer::getChannel() const {

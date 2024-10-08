@@ -3,10 +3,7 @@
 #include "Client.hpp"
 #include "globals.hpp"
 #include <sys/select.h>
-/* nc localhost 9090
-nick imen
-user imraoui 0 * imraoui
-join #ab*/
+
 IRCServer::IRCServer(int port, std::string password) : serverSocket(-1), port(port), password(password),epollFd(-1) {
 }
 
