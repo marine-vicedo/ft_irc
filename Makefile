@@ -4,6 +4,7 @@ SRCS = main.cpp \
        getserver.cpp \
        IRCCommandParser.cpp \
        Ircserver.cpp \
+       ./commands/cap.cpp \
        ./commands/bot.cpp \
        ./commands/die.cpp \
        ./commands/invite.cpp \

@@ -163,38 +163,38 @@ void IRCServer::MsgForListClient(const std::string &message) {
 		sendMessage(it->first, message);
 	}
 }
-/**************************chanell********************************/
-void IRCServer::addChanell(Channel* channel)
+/**************************channel********************************/
+void IRCServer::addchannel(Channel* channel)
 {
     if (!channel)
         return;
 
     std::vector<Channel*>::iterator it;
-    for (it = chanells.begin(); it != chanells.end(); ++it)
+    for (it = channels.begin(); it != channels.end(); ++it)
     {
         if (*it == channel)
         {
             return;
         }
     }
-    chanells.push_back(channel);
+    channels.push_back(channel);
 }
 
 void IRCServer::removeChannel(Channel* channel)
 {
     // Utiliser un itérateur pour trouver l'élément dans le vecteur
-    std::vector<Channel*>::iterator it = std::find(chanells.begin(), chanells.end(), channel);
+    std::vector<Channel*>::iterator it = std::find(channels.begin(), channels.end(), channel);
 
-    if (it != chanells.end())
+    if (it != channels.end())
     {
         delete *it;
-        chanells.erase(it);
+        channels.erase(it);
     }
 }
 Channel* IRCServer::getChannelByName(std::string name)
 {
     // Utilisation d'une boucle pour parcourir le vecteur
-    for (std::vector<Channel*>::iterator it = chanells.begin(); it != chanells.end(); ++it)
+    for (std::vector<Channel*>::iterator it = channels.begin(); it != channels.end(); ++it)
     {
         if ((*it)->getName() == name)  
         {
@@ -264,7 +264,7 @@ int IRCServer::NewConnection(int epollFd, struct sockaddr_in &client_address, so
 
 void	IRCServer::initCommands( void )
 {
-	//_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("CAP", &cap));
+	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("CAP", &cap));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("NICK", &nick));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("KICK", &kick));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("INVITE", &invite));
@@ -273,7 +273,7 @@ void	IRCServer::initCommands( void )
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PRIVMSG", &privmsg));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("NAMES", &names));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("NOTICE", &notice));
-	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("OPER", &oper));//on garde ?
+	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("OPER", &oper));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PART", &part));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PASS", &pass));
 	_commands.insert(std::pair<std::string, int (*)(IRCServer&, Client&, std::vector<std::string>&)>("PING", &ping));

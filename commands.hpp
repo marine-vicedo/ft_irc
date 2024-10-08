@@ -28,7 +28,6 @@ int kick(IRCServer &server, Client &client, std::vector<std::string> &arguments)
 int mode(IRCServer &server, Client &client, std::vector<std::string> &arguments);
 int names(IRCServer &server, Client &client, std::vector<std::string> &arguments);
 int nick(IRCServer &server, Client &client, std::vector<std::string> &arguments);
-//int notice(Server &server, Client &client, std::vector<std::string> &arguments);
 int oper(IRCServer &server, Client &client, std::vector<std::string> &arguments);
 int part(IRCServer &server, Client &client, std::vector<std::string> &arguments);
 int pass(IRCServer &server, Client &client, std::vector<std::string> &arguments);

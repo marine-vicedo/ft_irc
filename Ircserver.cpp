@@ -17,11 +17,11 @@ IRCServer::~IRCServer() {
     	delete it->second; // it->second est le pointeur vers l'objet Client
 	}
 	clients.clear(); 
-for (std::vector<Channel*>::iterator it =chanells.begin(); it !=chanells.end(); ++it)
+for (std::vector<Channel*>::iterator it =channels.begin(); it !=channels.end(); ++it)
 {
     delete *it; // Supprimer les objets Channel
 }
-chanells.clear();
+channels.clear();
 close(serverSocket); 
 }
 
@@ -87,12 +87,7 @@ void IRCServer::stop() {
 void IRCServer::sendMessage(int clientSocket, std::string message) {
 	send(clientSocket, message.c_str(), message.length(), 0);
 }
-/*
-structure qui existe dans #include <sys/epoll.h>
-struct epoll_event {
-	uint32_t events;   // Événements surveillés
-	epoll_data_t data; // Données associées à l'événement
-};*/
+
 int IRCServer::setupEpoll()
 {
 	setEpollFd(epoll_create1(0));
@@ -111,7 +106,7 @@ int IRCServer::setupEpoll()
 void IRCServer::acceptConnections() 
 {
 	initCommands();
-	 // Will contain client informatiochanellsn when new connection
+	 // Will contain client informatiochannelsn when new connection
 	struct sockaddr_in client_address;
 	// Calcule the len for accept()
 	socklen_t client_len = sizeof(client_address);

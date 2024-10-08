@@ -27,7 +27,7 @@ int join(IRCServer &server, Client &client, std::vector<std::string> &arguments)
 	if (!channel)
 	{
 		channel = new Channel(server, channelName, &client);
-		server.addChanell(channel);
+		server.addchannel(channel);
 	}
 	else
 	{

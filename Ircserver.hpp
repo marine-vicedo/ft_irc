@@ -41,7 +41,7 @@ private:
     typedef int (*CommandFunction)(IRCServer&, Client&, std::vector<std::string>&);
     std::map<std::string, CommandFunction> _commands;
     std::map<int, Client*>clients;
-    std::vector<Channel*>chanells;
+    std::vector<Channel*>channels;
     int epollFd;
     std::string _name;
 public:
@@ -59,10 +59,10 @@ public:
     Client *getClientByUsername(const std::string &username);
     Client *getClientByFd(int fd);
     void MsgForListClient(const std::string &message);
-    /*****************chanell***********************/
+    /*****************channel***********************/
      std::vector<Channel*> getChannel() const;
-    std::vector<Channel*> getChanell() const ;
-    void addChanell(Channel* channel);
+    std::vector<Channel*> getchannel() const ;
+    void addchannel(Channel* channel);
     void removeChannel(Channel* Channel);
     Channel* getChannelByName(std::string name);
     const char* concatenate(const char* str1, const char* str2);

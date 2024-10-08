@@ -5,10 +5,10 @@
 // arguments[1] = receiver (client / channel)
 // arguments[...] = message to send
                                 /*commentaire pour marine*/
-//erreur das ta fct privmsg que tu envoi un msg NULL de coup c normale que les client de chanelle il recoive rien j'ai change que sa
+//erreur das ta fct privmsg que tu envoi un msg NULL de coup c normale que les client de channele il recoive rien j'ai change que sa
 //if (!msgToSend.empty())
 			//channel->sendToChannel(PRIVMSG(client.getNickname(), client.getUsername(), arguments[1], msgToSend),&client); 
-//j'ai rajouter une modification au fct sendtochannel car le client qui envoie msg il le recoie deux fois et j'ai changer dans classe serveur partie chanelle 
+//j'ai rajouter une modification au fct sendtochannel car le client qui envoie msg il le recoie deux fois et j'ai changer dans classe serveur partie channele 
 // commands.cpp (ou le fichier où se trouve votre fonction privmsg)
 int privmsg(IRCServer &server, Client &client, std::vector<std::string> &arguments)
 {
